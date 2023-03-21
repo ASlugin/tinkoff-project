@@ -16,6 +16,15 @@ public abstract class AbstractParsingHandler implements ParsingHandler{
     }
 
     @Override
-    public abstract ParsingResult handle(String link);
+    public ParsingResult handle(String link) {
+        if (!doesLinkMatch(link)) {
+            return getNextHandler() != null ? getNextHandler().handle(link) : null;
+        }
+        return parse(link);
+    }
+
+    protected abstract Boolean doesLinkMatch(String link);
+
+    protected abstract ParsingResult parse(String link);
 
 }
