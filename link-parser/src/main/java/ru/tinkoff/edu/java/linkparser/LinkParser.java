@@ -9,7 +9,17 @@ import java.util.Iterator;
 import java.util.List;
 
 public class LinkParser {
+
     public static ParsingResult parse(String url) {
+        if (handler == null) {
+            buildHandler();
+        }
+        return handler.handle(url);
+    }
+
+    private static ParsingHandler handler;
+
+    private static void buildHandler() {
         List<ParsingHandler> listOfHandlers = List.of(
                 new GithubParsingHandler(),
                 new StackOverflowParsingHandler());
@@ -21,8 +31,6 @@ public class LinkParser {
             localHandler.setNextHandler(listOfHandlersIterator.next());
             localHandler = localHandler.getNextHandler();
         }
-
-        var handler = listOfHandlers.get(0);
-        return handler.handle(url);
+        handler = listOfHandlers.get(0);
     }
 }
