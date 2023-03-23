@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class LinkParser {
+    private static ParsingHandler handler;
 
     public static ParsingResult parse(String url) {
         if (handler == null) {
@@ -16,8 +17,6 @@ public class LinkParser {
         }
         return handler.handle(url);
     }
-
-    private static ParsingHandler handler;
 
     private static void buildHandler() {
         List<ParsingHandler> listOfHandlers = List.of(
