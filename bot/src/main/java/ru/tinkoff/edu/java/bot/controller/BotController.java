@@ -22,9 +22,10 @@ public class BotController {
                     content = @Content(schema = @Schema(implementation = Void.class))),
             @ApiResponse(description = "Некорректные параметры запроса",
                     responseCode = "400",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ApiErrorResponse.class)))
     })
-    public ResponseEntity<?> update(@RequestBody LinkUpdateRequest request) {
+    public ResponseEntity<?> updateLink(@RequestBody LinkUpdateRequest request) {
         if (request.id() < 1) {
             throw new IllegalArgumentException("id can't be negative or zero");
         }
