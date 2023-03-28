@@ -14,19 +14,15 @@ import ru.tinkoff.edu.java.scrapper.dto.response.ListLinksResponse;
 import ru.tinkoff.edu.java.scrapper.exception.IncorrectParametersOfRequestException;
 import ru.tinkoff.edu.java.scrapper.exception.LinkNotFoundException;
 
-import java.net.URI;
 
 @RestController
 public class LinkController {
-
     @GetMapping(value = "/links")
     @Operation(summary = "Получить все отслеживаемые ссылки", responses = {
-            @ApiResponse(responseCode = "200",
-                    description = "Ссылки успешно получены",
+            @ApiResponse(responseCode = "200", description = "Ссылки успешно получены",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ListLinksResponse.class))),
-            @ApiResponse(description = "Некорректные параметры запроса",
-                    responseCode = "400",
+            @ApiResponse(responseCode = "400", description = "Некорректные параметры запроса",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiErrorResponse.class)))
     })
@@ -40,12 +36,10 @@ public class LinkController {
 
     @PostMapping(value = "/links")
     @Operation(summary = "Добавить отслеживание ссылки", responses = {
-            @ApiResponse(responseCode = "200",
-                    description = "Ссылка успешно добавлена",
+            @ApiResponse(responseCode = "200", description = "Ссылка успешно добавлена",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = LinkResponse.class))),
-            @ApiResponse(description = "Некорректные параметры запроса",
-                    responseCode = "400",
+            @ApiResponse(responseCode = "400", description = "Некорректные параметры запроса",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiErrorResponse.class)))
     })
@@ -61,16 +55,13 @@ public class LinkController {
     @DeleteMapping(value = "/links")
     @PostMapping(value = "/links")
     @Operation(summary = "Убрать отслеживание ссылки", responses = {
-            @ApiResponse(responseCode = "200",
-                    description = "Ссылка успешно убрана",
+            @ApiResponse(responseCode = "200", description = "Ссылка успешно убрана",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = LinkResponse.class))),
-            @ApiResponse(description = "Некорректные параметры запроса",
-                    responseCode = "400",
+            @ApiResponse(responseCode = "400", description = "Некорректные параметры запроса",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiErrorResponse.class))),
-            @ApiResponse(description = "Ссылка не найдена",
-                    responseCode = "404",
+            @ApiResponse(responseCode = "404", description = "Ссылка не найдена",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiErrorResponse.class)))
     })

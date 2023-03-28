@@ -15,11 +15,9 @@ import ru.tinkoff.edu.java.scrapper.exception.TgChatNotFoundException;
 public class TgChatController {
     @PostMapping(value = "/{id}" )
     @Operation(summary = "Зарегистрировать чат", responses = {
-            @ApiResponse(responseCode = "200",
-                    description = "Чат зарегистрирован",
+            @ApiResponse(responseCode = "200", description = "Чат зарегистрирован",
                     content = @Content(schema = @Schema(implementation = Void.class))),
-            @ApiResponse(responseCode = "400",
-                    description = "Некорректные параметры запроса",
+            @ApiResponse(responseCode = "400", description = "Некорректные параметры запроса",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiErrorResponse.class)))
     })
@@ -33,15 +31,12 @@ public class TgChatController {
 
     @DeleteMapping(value = "/{id}")
     @Operation(summary = "Удалить чат", responses = {
-            @ApiResponse(responseCode = "200",
-                    description = "Чат успешно удалён",
+            @ApiResponse(responseCode = "200", description = "Чат успешно удалён",
                     content = @Content(schema = @Schema(implementation = Void.class))),
-            @ApiResponse(responseCode = "400",
-                    description = "Некорректные параметры запроса",
+            @ApiResponse(responseCode = "400", description = "Некорректные параметры запроса",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiErrorResponse.class))),
-            @ApiResponse(responseCode = "404",
-                    description = "Чат не существует",
+            @ApiResponse(responseCode = "404", description = "Чат не существует",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiErrorResponse.class)))
     })

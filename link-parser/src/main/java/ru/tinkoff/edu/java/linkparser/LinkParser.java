@@ -1,6 +1,6 @@
 package ru.tinkoff.edu.java.linkparser;
 
-import ru.tinkoff.edu.java.linkparser.handler.GithubParsingHandler;
+import ru.tinkoff.edu.java.linkparser.handler.GitHubParsingHandler;
 import ru.tinkoff.edu.java.linkparser.handler.ParsingHandler;
 import ru.tinkoff.edu.java.linkparser.handler.StackOverflowParsingHandler;
 import ru.tinkoff.edu.java.linkparser.result.ParsingResult;
@@ -20,7 +20,7 @@ public class LinkParser {
 
     private static void buildHandler() {
         List<ParsingHandler> listOfHandlers = List.of(
-                new GithubParsingHandler(),
+                new GitHubParsingHandler(),
                 new StackOverflowParsingHandler());
 
         Iterator<ParsingHandler> listOfHandlersIterator = listOfHandlers.listIterator();

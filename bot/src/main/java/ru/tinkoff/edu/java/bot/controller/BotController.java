@@ -16,15 +16,9 @@ import ru.tinkoff.edu.java.bot.dto.response.ApiErrorResponse;
 
 public class BotController {
     @PostMapping(value = "/updates")
-    @Operation(summary = "Отправить обновление", responses = {
-            @ApiResponse(responseCode = "200",
-                    description = "Обновление обработано",
-                    content = @Content(schema = @Schema(implementation = Void.class))),
-            @ApiResponse(description = "Некорректные параметры запроса",
-                    responseCode = "400",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ApiErrorResponse.class)))
-    })
+    @Operation(summary = "Отправить обновление")
+    @ApiResponse(responseCode = "200", description = "Обновление обработано",
+                    content = @Content(schema = @Schema(implementation = Void.class)))
     public ResponseEntity<?> updateLink(@RequestBody LinkUpdateRequest request) {
         if (request.id() < 1) {
             throw new IllegalArgumentException("id can't be negative or zero");
