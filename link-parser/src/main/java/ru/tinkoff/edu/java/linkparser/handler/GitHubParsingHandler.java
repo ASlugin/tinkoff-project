@@ -1,9 +1,9 @@
 package ru.tinkoff.edu.java.linkparser.handler;
 
-import ru.tinkoff.edu.java.linkparser.result.GithubParsingResult;
+import ru.tinkoff.edu.java.linkparser.result.GitHubParsingResult;
 import ru.tinkoff.edu.java.linkparser.result.ParsingResult;
 
-public final class GithubParsingHandler extends AbstractParsingHandler {
+public final class GitHubParsingHandler extends AbstractParsingHandler {
     private static final String PATTERN = "^https://github.com/[a-zA-Z0-9-]+/[a-zA-Z0-9-_.]+/?$";
 
     @Override
@@ -14,6 +14,6 @@ public final class GithubParsingHandler extends AbstractParsingHandler {
     @Override
     protected ParsingResult parse(String link) {
         String[] splitRes = link.split("/");
-        return new GithubParsingResult(splitRes[3], splitRes[4]);
+        return new GitHubParsingResult(splitRes[3], splitRes[4]);
     }
 }

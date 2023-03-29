@@ -1,2 +1,6 @@
 app:
-  test: 77
+  test: This is bot application
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui

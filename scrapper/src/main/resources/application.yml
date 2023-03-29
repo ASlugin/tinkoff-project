@@ -1,2 +1,8 @@
 app:
-  test: 79
+  test: This is scrapper application
+  scheduler:
+    interval: 10000
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui

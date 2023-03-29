@@ -1,6 +1,5 @@
 package ru.tinkoff.edu.java.linkparser.handler;
 
-import ru.tinkoff.edu.java.linkparser.result.GithubParsingResult;
 import ru.tinkoff.edu.java.linkparser.result.ParsingResult;
 import ru.tinkoff.edu.java.linkparser.result.StackOverflowParsingResult;
 
