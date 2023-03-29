@@ -16,7 +16,7 @@ public class ScrapperExceptionHandler {
     @ExceptionHandler({IncorrectParametersOfRequestException.class})
     public ResponseEntity<ApiErrorResponse> handleIncorrectParametersException(IncorrectParametersOfRequestException exception) {
         ApiErrorResponse errorResponse = new ApiErrorResponse("Request to scrapper error",
-                "400",
+                HttpStatus.BAD_REQUEST.toString(),
                 exception.getClass().getSimpleName(),
                 exception.getMessage(),
                 Arrays.stream(exception.getStackTrace()).map(StackTraceElement::toString).toArray(String[]::new)
@@ -27,7 +27,7 @@ public class ScrapperExceptionHandler {
     @ExceptionHandler({TgChatNotFoundException.class})
     public ResponseEntity<ApiErrorResponse> handleTgChatNotFoundException(TgChatNotFoundException exception) {
         ApiErrorResponse errorResponse = new ApiErrorResponse("Telegram chat not found",
-                "404",
+                HttpStatus.NOT_FOUND.toString(),
                 exception.getClass().getSimpleName(),
                 exception.getMessage(),
                 Arrays.stream(exception.getStackTrace()).map(StackTraceElement::toString).toArray(String[]::new)
@@ -38,7 +38,7 @@ public class ScrapperExceptionHandler {
     @ExceptionHandler({LinkNotFoundException.class})
     public ResponseEntity<ApiErrorResponse> handleLinkNotFoundException(LinkNotFoundException exception) {
         ApiErrorResponse errorResponse = new ApiErrorResponse("Link not found",
-                "404",
+                HttpStatus.NOT_FOUND.toString(),
                 exception.getClass().getSimpleName(),
                 exception.getMessage(),
                 Arrays.stream(exception.getStackTrace()).map(StackTraceElement::toString).toArray(String[]::new)

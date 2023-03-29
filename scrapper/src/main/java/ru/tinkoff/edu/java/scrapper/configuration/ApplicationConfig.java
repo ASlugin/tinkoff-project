@@ -6,7 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.validation.annotation.Validated;
-import ru.tinkoff.edu.java.scrapper.scheduler.Scheduler;
+
+import java.time.Duration;
 
 @Validated
 @ConfigurationProperties(prefix = "app", ignoreUnknownFields = false)
@@ -14,4 +15,6 @@ import ru.tinkoff.edu.java.scrapper.scheduler.Scheduler;
         version = "1.0.1",
         description = "Some description of scrapper"))
 @EnableScheduling
-public record ApplicationConfig(@NotNull String test, Scheduler scheduler) {}
+public record ApplicationConfig(@NotNull String test, Scheduler scheduler) {
+    public record Scheduler(Duration interval) {}
+}

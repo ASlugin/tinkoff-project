@@ -22,7 +22,7 @@ public class BotExceptionHandler extends ResponseEntityExceptionHandler {
                             schema = @Schema(implementation = ApiErrorResponse.class)))
     public ResponseEntity<ApiErrorResponse> handleException(IllegalArgumentException exception) {
         ApiErrorResponse errorResponse = new ApiErrorResponse("Bot API error",
-                "400",
+                HttpStatus.BAD_REQUEST.toString(),
                 exception.getClass().getSimpleName(),
                 exception.getMessage(),
                 Arrays.stream(exception.getStackTrace()).map(StackTraceElement::toString).toArray(String[]::new)
