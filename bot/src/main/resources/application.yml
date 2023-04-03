@@ -4,3 +4,6 @@ app:
 springdoc:
   swagger-ui:
     path: /swagger-ui
+
+bot:
+  token: ${BOT_TOKEN}
