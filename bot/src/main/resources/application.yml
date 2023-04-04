@@ -1,6 +1,9 @@
 app:
   test: This is bot application
 
+server:
+  port: 8081
+
 springdoc:
   swagger-ui:
     path: /swagger-ui

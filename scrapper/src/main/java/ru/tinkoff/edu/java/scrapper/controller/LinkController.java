@@ -4,6 +4,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.tinkoff.edu.java.scrapper.dto.request.AddLinkRequest;
@@ -14,8 +16,11 @@ import ru.tinkoff.edu.java.scrapper.dto.response.ListLinksResponse;
 import ru.tinkoff.edu.java.scrapper.exception.IncorrectParametersOfRequestException;
 import ru.tinkoff.edu.java.scrapper.exception.LinkNotFoundException;
 
+import java.net.URI;
+
 
 @RestController
+@Slf4j
 public class LinkController {
     @GetMapping(value = "/links")
     @Operation(summary = "Получить все отслеживаемые ссылки", responses = {
@@ -31,7 +36,10 @@ public class LinkController {
             throw new IncorrectParametersOfRequestException("Chat id can't be negative or zero");
         }
 
-        return ResponseEntity.ok().build();
+        log.info("Getting links for " + chatId);
+        LinkResponse[] arrayLinkResponse = new LinkResponse[1];
+        arrayLinkResponse[0] = new LinkResponse(1, URI.create("https://example.com"));
+        return new ResponseEntity<>(new ListLinksResponse(arrayLinkResponse, 1), HttpStatusCode.valueOf(200));
     }
 
     @PostMapping(value = "/links")
@@ -49,7 +57,8 @@ public class LinkController {
             throw new IncorrectParametersOfRequestException("Chat id can't be negative or zero");
         }
 
-        return ResponseEntity.ok().build();
+        log.info("Добавить ссылку " + request.link());
+        return new ResponseEntity<>(new LinkResponse(123, request.link()), HttpStatusCode.valueOf(200));
     }
 
     @DeleteMapping(value = "/links")
@@ -76,6 +85,7 @@ public class LinkController {
             throw new LinkNotFoundException("Link not found in list of existing links");
         }
 
-        return ResponseEntity.ok().build();
+        log.info("Убрать отслеживание ссылки " + request.link());
+        return new ResponseEntity<>(new LinkResponse(123, request.link()), HttpStatusCode.valueOf(200));
     }
 }

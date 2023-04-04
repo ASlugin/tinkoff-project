@@ -30,7 +30,7 @@ public class UserMessageProcessor {
             return new SendMessage(String.valueOf(update.message().chat().id()), "Неизвестная команда\n/help - список с командами");
         }
         catch (NullPointerException exc) {
-            return new SendMessage(String.valueOf(update.message().chat().id()), "Поддерживаются только текстовые сообщения\n/help");
+            return new SendMessage(String.valueOf(update.message().chat().id()), "Что-то пошло не так\n/help");
         }
     }
 }
