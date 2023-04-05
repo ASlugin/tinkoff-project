@@ -4,7 +4,7 @@ import ru.tinkoff.edu.java.linkparser.result.ParsingResult;
 import ru.tinkoff.edu.java.linkparser.result.StackOverflowParsingResult;
 
 public final class StackOverflowParsingHandler extends AbstractParsingHandler {
-    private static final String PATTERN = "^https://stackoverflow.com/questions/\\d+/[^/]+/?$";
+    private static final String PATTERN = "^https://stackoverflow.com/questions/\\d+/?.*$";
 
     @Override
     protected Boolean doesLinkMatch(String link) {

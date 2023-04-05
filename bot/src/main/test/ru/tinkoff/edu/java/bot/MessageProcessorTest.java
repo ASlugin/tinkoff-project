@@ -5,9 +5,7 @@ import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 import ru.tinkoff.edu.java.bot.service.UserMessageProcessor;
 import ru.tinkoff.edu.java.bot.service.command.ListCommand;
 import ru.tinkoff.edu.java.bot.service.command.StartCommand;
@@ -17,7 +15,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
 public class MessageProcessorTest {
 
     @Test
