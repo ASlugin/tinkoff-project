@@ -32,7 +32,7 @@ public class ListCommand extends Command {
 
         StringBuilder message = new StringBuilder();
         for (var link : links) {
-            message.append(String.format("%d: %s", link.id(), link.url()));
+            message.append(String.format("%d: %s\n", link.id(), link.url()));
         }
         return new SendMessage(chatId, message.toString());
     }
