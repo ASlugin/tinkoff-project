@@ -26,8 +26,6 @@ public class Bot {
 
         tgBot.setUpdatesListener(updates -> {
             for (Update update : updates){
-                System.out.println("@" + update.message().chat().username() + ": "
-                        + update.message().text());
                 tgBot.execute(processor.process(update));
             }
             return UpdatesListener.CONFIRMED_UPDATES_ALL;

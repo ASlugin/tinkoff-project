@@ -1,11 +1,9 @@
 package ru.tinkoff.edu.java.linkparser;
 
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import ru.tinkoff.edu.java.linkparser.result.GitHubParsingResult;
 import ru.tinkoff.edu.java.linkparser.result.ParsingResult;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -45,5 +43,4 @@ public class LinkParserTest {
         ParsingResult result = LinkParser.parse(link);
         assertEquals("StackOverflow: " + "id=" + expectedId, result.toString());
     }
-
 }
