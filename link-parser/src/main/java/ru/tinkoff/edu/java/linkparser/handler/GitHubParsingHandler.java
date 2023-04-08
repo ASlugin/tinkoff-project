@@ -4,7 +4,7 @@ import ru.tinkoff.edu.java.linkparser.result.GitHubParsingResult;
 import ru.tinkoff.edu.java.linkparser.result.ParsingResult;
 
 public final class GitHubParsingHandler extends AbstractParsingHandler {
-    private static final String PATTERN = "^https://github.com/[a-zA-Z0-9-]+/[a-zA-Z0-9-_.]+/?$";
+    private static final String PATTERN = "^https://github.com/[a-zA-Z0-9-]+/[a-zA-Z0-9-_.]+/?.*$";
 
     @Override
     protected Boolean doesLinkMatch(String link) {

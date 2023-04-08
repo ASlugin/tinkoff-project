@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.tinkoff.edu.java.scrapper.dto.response.ApiErrorResponse;
@@ -12,6 +13,7 @@ import ru.tinkoff.edu.java.scrapper.exception.TgChatNotFoundException;
 
 @RestController
 @RequestMapping("/tg-chat")
+@Slf4j
 public class TgChatController {
     @PostMapping(value = "/{id}" )
     @Operation(summary = "Зарегистрировать чат", responses = {
@@ -26,6 +28,7 @@ public class TgChatController {
             throw new IncorrectParametersOfRequestException("id can't be negative or zero");
         }
 
+        log.info("Зарегистрировать чат " + id);
         return ResponseEntity.ok().build();
     }
 
