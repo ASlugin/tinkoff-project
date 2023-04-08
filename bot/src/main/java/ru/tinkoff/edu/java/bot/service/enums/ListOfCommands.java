@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.java.bot.service.command;
+package ru.tinkoff.edu.java.bot.service.enums;
 
 public enum ListOfCommands {
     START("/start", "Зарегистрировать пользователя"),
