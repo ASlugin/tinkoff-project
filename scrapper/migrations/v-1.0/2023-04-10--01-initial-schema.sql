@@ -1,0 +1,3 @@
+CREATE TABLE chat (
+    chatID SERIAL PRIMARY KEY
+);
