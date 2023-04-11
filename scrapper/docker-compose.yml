@@ -3,7 +3,7 @@ version: '3.9'
 services:
   postgresql:
     image: postgres:15
-    container_name: postgres_container
+    container_name: postgres
     restart: always
     ports:
       - "5432:5432"
@@ -18,8 +18,10 @@ services:
 
   liquibase-migrations:
     image: liquibase/liquibase:4.18
+    container_name: liquibase
     depends_on:
       - postgresql
+    restart: on-failure
     command:
       - --hub-mode=off
       - --changelog-file=master.xml
@@ -33,23 +35,8 @@ services:
     networks:
       - backend
 
-  pgadmin:
-    image: dpage/pgadmin4:6
-    container_name: pgadmin_container
-    restart: always
-    ports:
-      - "8080:80"
-    environment:
-      PGADMIN_DEFAULT_EMAIL: mail@mail.com
-      PGADMIN_DEFAULT_PASSWORD: 12345678
-    volumes:
-      - pgadmin-data:/var/lib/pgadmin
-    networks:
-      - backend
-
 networks:
   backend:
 
 volumes:
   postgres-data:
-  pgadmin-data:
