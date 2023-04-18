@@ -5,4 +5,5 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <include file="v-1.0/2023-04-10--01-initial-schema.sql"/>
+    <include file="v-1.0/2023-04-18--02-add-column-to-link.sql"/>
 </databaseChangeLog>
