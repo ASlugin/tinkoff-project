@@ -6,3 +6,11 @@ app:
 springdoc:
   swagger-ui:
     path: /swagger-ui
+
+spring:
+  liquibase:
+    enabled: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/scrapper
+    username: postgres
+    password: 123456

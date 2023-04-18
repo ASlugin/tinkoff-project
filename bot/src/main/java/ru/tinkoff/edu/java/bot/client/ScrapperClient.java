@@ -1,11 +1,16 @@
 package ru.tinkoff.edu.java.bot.client;
 
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 import ru.tinkoff.edu.java.bot.dto.client.AddLinkRequest;
 import ru.tinkoff.edu.java.bot.dto.client.LinkResponse;
 import ru.tinkoff.edu.java.bot.dto.client.ListLinksResponse;
 import ru.tinkoff.edu.java.bot.dto.client.RemoveLinkRequest;
+import ru.tinkoff.edu.java.bot.dto.response.ApiErrorResponse;
+import ru.tinkoff.edu.java.bot.exception.ScrapperApiErrorException;
 
 public class ScrapperClient {
     private static final String DEFAULT_BASE_URL = "http://localhost:8080";
@@ -16,7 +21,11 @@ public class ScrapperClient {
     }
 
     public ScrapperClient(String baseUrl) {
-        this.client = WebClient.builder().baseUrl(baseUrl == null || baseUrl.isEmpty() ? DEFAULT_BASE_URL : baseUrl).build();
+        this.client = WebClient
+                .builder()
+                .filter(errorHandler())
+                .baseUrl(baseUrl == null || baseUrl.isEmpty() ? DEFAULT_BASE_URL : baseUrl)
+                .build();
     }
 
     public ListLinksResponse getAllLinks(long chatId) {
@@ -51,7 +60,7 @@ public class ScrapperClient {
                 .block();
     }
 
-    public void registerChat(long chatId) {
+    public void registerChat(long chatId) throws ScrapperApiErrorException {
         client.post()
                 .uri("/tg-chat/" + String.valueOf(chatId))
                 .retrieve()
@@ -65,5 +74,16 @@ public class ScrapperClient {
                 .retrieve()
                 .bodyToMono(Void.class)
                 .block();
+    }
+
+    public static ExchangeFilterFunction errorHandler() {
+        return ExchangeFilterFunction.ofResponseProcessor(clientResponse -> {
+            if (clientResponse.statusCode().equals(HttpStatusCode.valueOf(400))) {
+                return clientResponse.bodyToMono(ApiErrorResponse.class)
+                        .flatMap(response -> Mono.error(new ScrapperApiErrorException(response.exceptionMessage())));
+            } else {
+                return Mono.just(clientResponse);
+            }
+        });
     }
 }
