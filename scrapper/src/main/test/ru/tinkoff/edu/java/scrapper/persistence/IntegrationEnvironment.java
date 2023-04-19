@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.java.scrapper;
+package ru.tinkoff.edu.java.scrapper.persistence;
 
 import liquibase.Contexts;
 import liquibase.LabelExpression;
@@ -8,8 +8,17 @@ import liquibase.database.DatabaseFactory;
 import liquibase.database.jvm.JdbcConnection;
 import liquibase.exception.LiquibaseException;
 import liquibase.resource.DirectoryResourceAccessor;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
+import javax.sql.DataSource;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
@@ -41,5 +50,13 @@ public abstract class IntegrationEnvironment {
         } catch (SQLException | LiquibaseException | FileNotFoundException exc) {
             throw new RuntimeException(exc);
         }
+    }
+
+    @DynamicPropertySource
+    protected static void registerPgProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", DB_CONTAINER::getJdbcUrl);
+        registry.add("spring.datasource.username", DB_CONTAINER::getUsername);
+        registry.add("spring.datasource.password", DB_CONTAINER::getPassword);
+        registry.add("spring.liquibase.enabled", () -> false);
     }
 }

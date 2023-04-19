@@ -30,8 +30,13 @@ public class JdbcLinkRepository implements LinkRepository {
     }
 
     @Override
-    public void removeLink(long chatId, String url) {
-
+    public Link removeLink(long chatId, String url) {
+        Link link = findLinkByUrl(url);
+        if (link == null) {
+            return null;
+        }
+        jdbcTemplate.update("DELETE FROM chat_link WHERE chat_id=? AND link_id=?", chatId, link.getId());
+        return link;
     }
 
     @Override
@@ -55,8 +60,7 @@ public class JdbcLinkRepository implements LinkRepository {
                 Integer.class, chatId, linkId);
         return count != null && count != 0;
     }
-
-    private Link findLinkByUrl(String url) {
+    public Link findLinkByUrl(String url) {
         try {
             return jdbcTemplate.queryForObject("SELECT id, url, updated_at, checked_at FROM link WHERE url=?",
                     linkRowMapper, url);

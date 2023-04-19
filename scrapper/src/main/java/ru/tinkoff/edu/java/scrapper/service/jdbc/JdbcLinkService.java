@@ -25,7 +25,7 @@ public class JdbcLinkService implements LinkService {
 
     @Override
     public Link remove(long tgChatId, URI url) {
-        return null;
+        return linkRepository.removeLink(tgChatId, url.toString());
     }
 
     @Override

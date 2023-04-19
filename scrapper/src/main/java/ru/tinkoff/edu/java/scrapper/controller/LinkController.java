@@ -88,12 +88,12 @@ public class LinkController {
             throw new IncorrectParametersOfRequestException("Chat id can't be negative or zero");
         }
 
-        // if link not found in list of existing links
-        if (request.link().toString().equals("ololo")) {
+        log.info("Delete link " + request.link() + " for chatId: " + chatId);
+        Link deletedLink = linkService.remove(chatId, request.link());
+        if (deletedLink == null) {
             throw new LinkNotFoundException("Link not found in list of existing links");
         }
 
-        log.info("Убрать отслеживание ссылки " + request.link());
-        return new ResponseEntity<>(new LinkResponse(123, request.link()), HttpStatusCode.valueOf(200));
+        return new ResponseEntity<>(new LinkResponse(deletedLink.getId(), URI.create(deletedLink.getUrl())), HttpStatusCode.valueOf(200));
     }
 }
