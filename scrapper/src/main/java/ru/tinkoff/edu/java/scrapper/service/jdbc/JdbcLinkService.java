@@ -1,6 +1,5 @@
 package ru.tinkoff.edu.java.scrapper.service.jdbc;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.tinkoff.edu.java.scrapper.persistence.model.Link;
@@ -30,7 +29,7 @@ public class JdbcLinkService implements LinkService {
 
     @Override
     public List<Link> listAll(long tgChatId) {
-        return linkRepository.findAllLinks(tgChatId);
+        return linkRepository.findAllLinksForChat(tgChatId);
     }
 
 }

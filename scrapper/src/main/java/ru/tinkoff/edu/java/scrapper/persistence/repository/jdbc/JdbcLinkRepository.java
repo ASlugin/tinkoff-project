@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.persistence.model.Link;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.LinkRepository;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -40,11 +41,27 @@ public class JdbcLinkRepository implements LinkRepository {
     }
 
     @Override
-    public List<Link> findAllLinks(long chatId) {
+    public List<Link> findAllLinksForChat(long chatId) {
         return jdbcTemplate.query("SELECT id, url, updated_at, checked_at FROM link " +
                         "JOIN chat_link ON link.id=chat_link.link_id " +
                         "WHERE chat_link.chat_id=?",
                 linkRowMapper, chatId);
+    }
+
+    @Override
+    public List<Link> findNotCheckedLinks(int checkIntervalMinutes) {
+        return jdbcTemplate.query("SELECT * FROM link WHERE extract(epoch FROM now() - checked_at)/60 > ?", linkRowMapper, checkIntervalMinutes);
+    }
+
+    @Override
+    public List<Long> updateLink(Link link, OffsetDateTime updatedAt) {
+        jdbcTemplate.update("UPDATE link SET updated_at=?, checked_at=now() WHERE id=?", updatedAt, link.getId());
+        return jdbcTemplate.queryForList("SELECT chat_id FROM chat_link WHERE link_id=?", Long.class, link.getId());
+    }
+
+    @Override
+    public void checkLink(Link link) {
+        jdbcTemplate.update("UPDATE link SET checked_at=now() WHERE id=?", link.getId());
     }
 
     @Transactional
@@ -60,6 +77,7 @@ public class JdbcLinkRepository implements LinkRepository {
                 Integer.class, chatId, linkId);
         return count != null && count != 0;
     }
+
     public Link findLinkByUrl(String url) {
         try {
             return jdbcTemplate.queryForObject("SELECT id, url, updated_at, checked_at FROM link WHERE url=?",

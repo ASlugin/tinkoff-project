@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.java.scrapper.persistence;
+package ru.tinkoff.edu.java.scrapper;
 
 import liquibase.Contexts;
 import liquibase.LabelExpression;
