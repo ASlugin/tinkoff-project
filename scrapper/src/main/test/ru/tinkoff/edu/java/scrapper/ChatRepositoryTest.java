@@ -80,7 +80,7 @@ public class ChatRepositoryTest extends IntegrationEnvironment {
     @Test
     @Transactional
     @Rollback
-    public void findAllChats__() {
+    public void findAllChats__allChatsShouldBeReturned() {
         // given
         Long[] chatIds = new Long[]{123L, 456L, 777L};
         for (long chatId : chatIds) {
