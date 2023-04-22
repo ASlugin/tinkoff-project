@@ -39,7 +39,6 @@ public class LinkUpdaterScheduler {
     @Scheduled(fixedDelayString = "${app.scheduler.interval}")
     public void update() {
         log.info("Find links for update");
-
         List<Link> links = linkRepository.findNotCheckedLinks(checkLinkInterval);
         for (Link link : links) {
 

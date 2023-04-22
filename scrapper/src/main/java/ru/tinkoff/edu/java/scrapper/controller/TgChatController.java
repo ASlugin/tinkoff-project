@@ -6,6 +6,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.tinkoff.edu.java.scrapper.dto.response.ApiErrorResponse;
@@ -16,9 +18,12 @@ import ru.tinkoff.edu.java.scrapper.service.TgChatService;
 @RestController
 @RequestMapping("/tg-chat")
 @Slf4j
-@RequiredArgsConstructor
 public class TgChatController {
-    private final TgChatService tgChatService;
+    private final TgChatService chatService;
+
+    public TgChatController(@Qualifier("jooqChatService") TgChatService chatService) {
+        this.chatService = chatService;
+    }
 
     @PostMapping(value = "/{id}" )
     @Operation(summary = "Зарегистрировать чат", responses = {
@@ -32,7 +37,9 @@ public class TgChatController {
         if (id < 1) {
             throw new IncorrectParametersOfRequestException("id can't be negative or zero");
         }
-        if (!tgChatService.register(id)) {
+
+        log.info("REGISTER CHAT " + id);
+        if (!chatService.register(id)) {
             throw new IncorrectParametersOfRequestException("Чат уже зарегистрирован!");
         };
         return ResponseEntity.ok().build();
@@ -53,10 +60,10 @@ public class TgChatController {
         if (id < 1) {
             throw new IncorrectParametersOfRequestException("id can't be negative or zero");
         }
-        if (!tgChatService.isChatExist(id)) {
+        if (!chatService.isChatExist(id)) {
             throw new TgChatNotFoundException("Chat with given id does not exist");
         }
-        tgChatService.unregister(id);
+        chatService.unregister(id);
         return ResponseEntity.ok().build();
     }
 }
