@@ -8,8 +8,8 @@ import ru.tinkoff.edu.java.scrapper.persistence.model.Link;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.LinkRepository;
 
 import static org.jooq.impl.DSL.*;
-import static ru.tinkoff.edu.java.scrapper.domain.jooq.tables.ChatLink.CHAT_LINK;
-import static ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Link.LINK;
+import static ru.tinkoff.edu.java.scrapper.persistence.jooq.tables.ChatLink.CHAT_LINK;
+import static ru.tinkoff.edu.java.scrapper.persistence.jooq.tables.Link.LINK;
 
 import java.time.OffsetDateTime;
 import java.util.List;

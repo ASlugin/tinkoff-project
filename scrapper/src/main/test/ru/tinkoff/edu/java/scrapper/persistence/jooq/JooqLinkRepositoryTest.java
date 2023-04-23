@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.java.scrapper;
+package ru.tinkoff.edu.java.scrapper.persistence.jooq;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,9 +8,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+import ru.tinkoff.edu.java.scrapper.persistence.IntegrationEnvironment;
 import ru.tinkoff.edu.java.scrapper.persistence.model.Link;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.jdbc.JdbcChatRepository;
-import ru.tinkoff.edu.java.scrapper.persistence.repository.jdbc.JdbcLinkRepository;
+import ru.tinkoff.edu.java.scrapper.persistence.repository.jooq.JooqLinkRepository;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,9 +21,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class LinkRepositoryTest extends IntegrationEnvironment {
+public class JooqLinkRepositoryTest extends IntegrationEnvironment {
     @Autowired
-    private JdbcLinkRepository linkRepository;
+    private JooqLinkRepository linkRepository;
     @Autowired
     private JdbcChatRepository chatRepository;
     @Autowired

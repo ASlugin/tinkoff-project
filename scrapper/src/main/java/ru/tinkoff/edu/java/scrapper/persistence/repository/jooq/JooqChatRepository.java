@@ -7,14 +7,15 @@ import ru.tinkoff.edu.java.scrapper.persistence.model.Chat;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.ChatRepository;
 import java.util.List;
 
+import static ru.tinkoff.edu.java.scrapper.persistence.jooq.tables.Chat.CHAT;
+
 @Repository
 @RequiredArgsConstructor
 public class JooqChatRepository implements ChatRepository {
     private final DSLContext dsl;
     @Override
     public Chat addChatById(long chatId) {
-        dsl.insertInto(ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Chat.CHAT,
-                ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Chat.CHAT.ID)
+        dsl.insertInto(CHAT, CHAT.ID)
                 .values(chatId)
                 .execute();
         return findChatById(chatId);
@@ -22,8 +23,8 @@ public class JooqChatRepository implements ChatRepository {
 
     @Override
     public void removeChatById(long chatId) {
-        dsl.deleteFrom(ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Chat.CHAT)
-                .where(ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Chat.CHAT.ID.eq(chatId))
+        dsl.deleteFrom(CHAT)
+                .where(CHAT.ID.eq(chatId))
                 .execute();
     }
 
@@ -34,17 +35,17 @@ public class JooqChatRepository implements ChatRepository {
 
     @Override
     public Chat findChatById(long chatId) {
-        var result = dsl.select().from(ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Chat.CHAT)
-                    .where(ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Chat.CHAT.ID.eq(chatId))
+        var result = dsl.select().from(CHAT)
+                    .where(CHAT.ID.eq(chatId))
                     .fetchOne();
         if (result != null) {
-            result.into(Chat.class);
+            return result.into(Chat.class);
         }
         return null;
     }
 
     @Override
     public List<Chat> findAllChats() {
-        return dsl.select().from(ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Chat.CHAT).fetch().into(Chat.class);
+        return dsl.select().from(CHAT).fetch().into(Chat.class);
     }
 }
