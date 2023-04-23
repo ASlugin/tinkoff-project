@@ -34,13 +34,13 @@ public class JooqChatRepository implements ChatRepository {
 
     @Override
     public Chat findChatById(long chatId) {
-        try {
-            return dsl.select().from(ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Chat.CHAT)
+        var result = dsl.select().from(ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Chat.CHAT)
                     .where(ru.tinkoff.edu.java.scrapper.domain.jooq.tables.Chat.CHAT.ID.eq(chatId))
-                    .fetchOne().into(Chat.class);
-        } catch (NullPointerException exc) {
-            return null;
+                    .fetchOne();
+        if (result != null) {
+            result.into(Chat.class);
         }
+        return null;
     }
 
     @Override

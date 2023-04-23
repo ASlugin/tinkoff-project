@@ -1,18 +1,18 @@
 package ru.tinkoff.edu.java.scrapper.service.jooq;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import ru.tinkoff.edu.java.scrapper.persistence.model.Chat;
-import ru.tinkoff.edu.java.scrapper.persistence.repository.jooq.JooqChatRepository;
+import ru.tinkoff.edu.java.scrapper.persistence.repository.ChatRepository;
 import ru.tinkoff.edu.java.scrapper.service.TgChatService;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class JooqChatService implements TgChatService {
-    private final JooqChatRepository chatRepository;
+    @Qualifier("jooqChatRepository")
+    private final ChatRepository chatRepository;
 
     @Override
     public boolean register(long chatId) {
