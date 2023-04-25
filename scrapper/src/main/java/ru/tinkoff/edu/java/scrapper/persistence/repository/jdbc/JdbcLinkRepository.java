@@ -50,7 +50,8 @@ public class JdbcLinkRepository implements LinkRepository {
 
     @Override
     public List<Link> findNotCheckedLinks(int checkIntervalMinutes) {
-        return jdbcTemplate.query("SELECT * FROM link WHERE extract(epoch FROM now() - checked_at)/60 > ?", linkRowMapper, checkIntervalMinutes);
+        return jdbcTemplate.query("SELECT * FROM link WHERE extract(epoch FROM now() - checked_at)/60 > ?",
+                linkRowMapper, checkIntervalMinutes);
     }
 
     @Override
@@ -78,7 +79,7 @@ public class JdbcLinkRepository implements LinkRepository {
         return count != null && count != 0;
     }
 
-    public Link findLinkByUrl(String url) {
+    private Link findLinkByUrl(String url) {
         try {
             return jdbcTemplate.queryForObject("SELECT id, url, updated_at, checked_at FROM link WHERE url=?",
                     linkRowMapper, url);

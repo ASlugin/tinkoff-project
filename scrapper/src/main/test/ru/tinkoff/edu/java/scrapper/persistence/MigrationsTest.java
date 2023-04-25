@@ -1,8 +1,8 @@
-package ru.tinkoff.edu.java.scrapper;
+package ru.tinkoff.edu.java.scrapper.persistence;
 
 import lombok.SneakyThrows;
 import org.junit.Test;
-import ru.tinkoff.edu.java.scrapper.IntegrationEnvironment;
+import ru.tinkoff.edu.java.scrapper.persistence.IntegrationEnvironment;
 
 import java.sql.*;
 import java.util.ArrayList;

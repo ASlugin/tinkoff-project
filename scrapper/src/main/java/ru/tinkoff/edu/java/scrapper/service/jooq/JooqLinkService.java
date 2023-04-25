@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.java.scrapper.service.jdbc;
+package ru.tinkoff.edu.java.scrapper.service.jooq;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,8 +12,8 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class JdbcLinkService implements LinkService {
-    @Qualifier("jdbcLinkRepository")
+public class JooqLinkService implements LinkService {
+    @Qualifier("jooqLinkRepository")
     private final LinkRepository linkRepository;
 
     @Override
@@ -30,5 +30,4 @@ public class JdbcLinkService implements LinkService {
     public List<Link> listAll(long tgChatId) {
         return linkRepository.findAllLinksForChat(tgChatId);
     }
-
 }

@@ -36,6 +36,11 @@
             <version>${junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq</artifactId>
+            <version>3.18.0</version>
+        </dependency>
     </dependencies>
 
     <build>

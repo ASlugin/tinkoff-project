@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.java.scrapper;
+package ru.tinkoff.edu.java.scrapper.persistence.jdbc;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+import ru.tinkoff.edu.java.scrapper.persistence.IntegrationEnvironment;
 import ru.tinkoff.edu.java.scrapper.persistence.model.Chat;
 import org.springframework.jdbc.core.JdbcTemplate;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.jdbc.JdbcChatRepository;
@@ -20,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class ChatRepositoryTest extends IntegrationEnvironment {
+public class JdbcChatRepositoryTest extends IntegrationEnvironment {
     @Autowired
     private JdbcChatRepository chatRepository;
     @Autowired
