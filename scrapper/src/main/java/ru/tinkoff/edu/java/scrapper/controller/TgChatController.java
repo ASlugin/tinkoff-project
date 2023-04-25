@@ -4,17 +4,27 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.tinkoff.edu.java.scrapper.dto.response.ApiErrorResponse;
 import ru.tinkoff.edu.java.scrapper.exception.IncorrectParametersOfRequestException;
 import ru.tinkoff.edu.java.scrapper.exception.TgChatNotFoundException;
+import ru.tinkoff.edu.java.scrapper.service.TgChatService;
 
 @RestController
 @RequestMapping("/tg-chat")
 @Slf4j
 public class TgChatController {
+    private final TgChatService chatService;
+
+    public TgChatController(@Qualifier("jooqChatService") TgChatService chatService) {
+        this.chatService = chatService;
+    }
+
     @PostMapping(value = "/{id}" )
     @Operation(summary = "Зарегистрировать чат", responses = {
             @ApiResponse(responseCode = "200", description = "Чат зарегистрирован",
@@ -28,7 +38,10 @@ public class TgChatController {
             throw new IncorrectParametersOfRequestException("id can't be negative or zero");
         }
 
-        log.info("Зарегистрировать чат " + id);
+        log.info("REGISTER CHAT " + id);
+        if (!chatService.register(id)) {
+            throw new IncorrectParametersOfRequestException("Чат уже зарегистрирован!");
+        };
         return ResponseEntity.ok().build();
     }
 
@@ -47,11 +60,10 @@ public class TgChatController {
         if (id < 1) {
             throw new IncorrectParametersOfRequestException("id can't be negative or zero");
         }
-        // if chat with given id does not exist
-        if (id == 777) {
+        if (!chatService.isChatExist(id)) {
             throw new TgChatNotFoundException("Chat with given id does not exist");
         }
-
+        chatService.unregister(id);
         return ResponseEntity.ok().build();
     }
 }

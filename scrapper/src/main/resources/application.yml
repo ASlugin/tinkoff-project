@@ -3,6 +3,16 @@ app:
   scheduler:
     interval: 10000
 
+check-link-interval-minutes: 5
+
 springdoc:
   swagger-ui:
     path: /swagger-ui
+
+spring:
+  liquibase:
+    enabled: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/scrapper
+    username: postgres
+    password: 123456

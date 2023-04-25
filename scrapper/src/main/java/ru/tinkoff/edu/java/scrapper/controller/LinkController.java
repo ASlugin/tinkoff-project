@@ -4,7 +4,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +17,19 @@ import ru.tinkoff.edu.java.scrapper.dto.response.LinkResponse;
 import ru.tinkoff.edu.java.scrapper.dto.response.ListLinksResponse;
 import ru.tinkoff.edu.java.scrapper.exception.IncorrectParametersOfRequestException;
 import ru.tinkoff.edu.java.scrapper.exception.LinkNotFoundException;
+import ru.tinkoff.edu.java.scrapper.persistence.model.Link;
+import ru.tinkoff.edu.java.scrapper.service.LinkService;
 
 import java.net.URI;
-
+import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @Slf4j
 public class LinkController {
+    @Qualifier("jooqLinkService")
+    private final LinkService linkService;
+
     @GetMapping(value = "/links")
     @Operation(summary = "Получить все отслеживаемые ссылки", responses = {
             @ApiResponse(responseCode = "200", description = "Ссылки успешно получены",
@@ -36,10 +44,11 @@ public class LinkController {
             throw new IncorrectParametersOfRequestException("Chat id can't be negative or zero");
         }
 
-        log.info("Getting links for " + chatId);
-        LinkResponse[] arrayLinkResponse = new LinkResponse[1];
-        arrayLinkResponse[0] = new LinkResponse(1, URI.create("https://example.com"));
-        return new ResponseEntity<>(new ListLinksResponse(arrayLinkResponse, 1), HttpStatusCode.valueOf(200));
+        log.info("Getting links for chatId: " + chatId);
+        List<Link> links = linkService.listAll(chatId);
+        LinkResponse[] linkResponses = links.stream().map(link -> new LinkResponse(link.getId(), URI.create(link.getUrl())))
+                .toArray(LinkResponse[]::new);
+        return new ResponseEntity<>(new ListLinksResponse(linkResponses, linkResponses.length), HttpStatusCode.valueOf(200));
     }
 
     @PostMapping(value = "/links")
@@ -57,8 +66,9 @@ public class LinkController {
             throw new IncorrectParametersOfRequestException("Chat id can't be negative or zero");
         }
 
-        log.info("Добавить ссылку " + request.link());
-        return new ResponseEntity<>(new LinkResponse(123, request.link()), HttpStatusCode.valueOf(200));
+        log.info("Add link " + request.link() + " to chatId: " + chatId);
+        Link link = linkService.add(chatId, request.link());
+        return new ResponseEntity<>(new LinkResponse(link.getId(), URI.create(link.getUrl())), HttpStatusCode.valueOf(200));
     }
 
     @DeleteMapping(value = "/links")
@@ -80,12 +90,12 @@ public class LinkController {
             throw new IncorrectParametersOfRequestException("Chat id can't be negative or zero");
         }
 
-        // if link not found in list of existing links
-        if (request.link().toString().equals("ololo")) {
+        log.info("Delete link " + request.link() + " for chatId: " + chatId);
+        Link deletedLink = linkService.remove(chatId, request.link());
+        if (deletedLink == null) {
             throw new LinkNotFoundException("Link not found in list of existing links");
         }
 
-        log.info("Убрать отслеживание ссылки " + request.link());
-        return new ResponseEntity<>(new LinkResponse(123, request.link()), HttpStatusCode.valueOf(200));
+        return new ResponseEntity<>(new LinkResponse(deletedLink.getId(), URI.create(deletedLink.getUrl())), HttpStatusCode.valueOf(200));
     }
 }

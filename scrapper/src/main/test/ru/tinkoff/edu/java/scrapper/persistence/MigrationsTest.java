@@ -1,7 +1,8 @@
-package ru.tinkoff.edu.java.scrapper;
+package ru.tinkoff.edu.java.scrapper.persistence;
 
 import lombok.SneakyThrows;
 import org.junit.Test;
+import ru.tinkoff.edu.java.scrapper.persistence.IntegrationEnvironment;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class DataBaseTest extends IntegrationEnvironment {
+public class MigrationsTest extends IntegrationEnvironment {
     @Test
     @SneakyThrows
     public void tablesCreatedAfterMigrationsTest() {

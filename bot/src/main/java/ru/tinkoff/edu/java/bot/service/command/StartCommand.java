@@ -5,6 +5,7 @@ import com.pengrad.telegrambot.request.SendMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.tinkoff.edu.java.bot.client.ScrapperClient;
+import ru.tinkoff.edu.java.bot.exception.ScrapperApiErrorException;
 import ru.tinkoff.edu.java.bot.service.enums.ListOfCommands;
 
 @Component
@@ -22,7 +23,13 @@ public class StartCommand implements Command {
 
     public SendMessage handle(Update update) {
         long chatId = update.message().chat().id();
-        scrapperClient.registerChat(chatId);
-        return new SendMessage(chatId, "Чат зарегистрирован");
+        String message;
+        try {
+            scrapperClient.registerChat(chatId);
+            message = "Чат зарегистрирован!";
+        } catch (ScrapperApiErrorException exc) {
+            message = exc.getMessage();
+        }
+        return new SendMessage(chatId, message);
     }
 }
