@@ -27,7 +27,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class LinkController {
-    @Qualifier("jooqLinkService")
+    @Qualifier("jpaLinkService")
     private final LinkService linkService;
 
     @GetMapping(value = "/links")

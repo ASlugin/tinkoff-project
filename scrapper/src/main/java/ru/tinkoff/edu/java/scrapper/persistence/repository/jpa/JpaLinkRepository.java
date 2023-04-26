@@ -1,39 +1,20 @@
 package ru.tinkoff.edu.java.scrapper.persistence.repository.jpa;
 
-import ru.tinkoff.edu.java.scrapper.persistence.model.Link;
-import ru.tinkoff.edu.java.scrapper.persistence.repository.LinkRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import ru.tinkoff.edu.java.scrapper.persistence.repository.jpa.entity.ChatEntity;
+import ru.tinkoff.edu.java.scrapper.persistence.repository.jpa.entity.LinkEntity;
 
-import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Optional;
 
-public class JpaLinkRepository implements LinkRepository {
-    @Override
-    public Link addLink(long chatId, String url) {
-        return null;
-    }
 
-    @Override
-    public Link removeLink(long chatId, String url) {
-        return null;
-    }
+@Repository
+public interface JpaLinkRepository extends JpaRepository<LinkEntity, Long> {
+    List<LinkEntity> findAllByChatsContains(ChatEntity chatEntity);
 
-    @Override
-    public List<Link> findAllLinksForChat(long chatId) {
-        return null;
-    }
+    Optional<LinkEntity> findByUrl(String url);
 
-    @Override
-    public List<Link> findNotCheckedLinks(int checkIntervalMinutes) {
-        return null;
-    }
+    Optional<LinkEntity> findByUrlAndChatsContains(String url, ChatEntity chatEntity);
 
-    @Override
-    public List<Long> updateLink(Link link, OffsetDateTime updatedAt) {
-        return null;
-    }
-
-    @Override
-    public void checkLink(Link link) {
-
-    }
 }
