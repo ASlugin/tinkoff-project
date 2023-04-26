@@ -2,6 +2,7 @@ app:
   test: This is scrapper application
   scheduler:
     interval: 10000
+  database-access-type: jdbc
 
 check-link-interval-minutes: 5
 

@@ -6,8 +6,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.tinkoff.edu.java.scrapper.dto.response.ApiErrorResponse;
@@ -17,13 +15,10 @@ import ru.tinkoff.edu.java.scrapper.service.TgChatService;
 
 @RestController
 @RequestMapping("/tg-chat")
+@RequiredArgsConstructor
 @Slf4j
 public class TgChatController {
     private final TgChatService chatService;
-
-    public TgChatController(@Qualifier("jpaChatService") TgChatService chatService) {
-        this.chatService = chatService;
-    }
 
     @PostMapping(value = "/{id}" )
     @Operation(summary = "Зарегистрировать чат", responses = {

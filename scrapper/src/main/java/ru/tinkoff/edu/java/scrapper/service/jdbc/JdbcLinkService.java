@@ -10,10 +10,8 @@ import ru.tinkoff.edu.java.scrapper.service.LinkService;
 import java.net.URI;
 import java.util.List;
 
-@Service
 @RequiredArgsConstructor
 public class JdbcLinkService implements LinkService {
-    @Qualifier("jdbcLinkRepository")
     private final LinkRepository linkRepository;
 
     @Override

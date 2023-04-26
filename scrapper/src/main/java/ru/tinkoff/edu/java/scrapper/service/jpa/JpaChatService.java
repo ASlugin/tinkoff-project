@@ -1,13 +1,11 @@
 package ru.tinkoff.edu.java.scrapper.service.jpa;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.jpa.JpaChatRepository;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.jpa.entity.ChatEntity;
 import ru.tinkoff.edu.java.scrapper.service.TgChatService;
 
-@Service
 @RequiredArgsConstructor
 public class JpaChatService implements TgChatService {
     private final JpaChatRepository jpaChatRepository;

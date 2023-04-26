@@ -5,13 +5,11 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
 import ru.tinkoff.edu.java.scrapper.persistence.model.Chat;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.ChatRepository;
 
 import java.util.List;
 
-@Repository
 @RequiredArgsConstructor
 public class JdbcChatRepository implements ChatRepository {
     private final JdbcTemplate jdbcTemplate;
