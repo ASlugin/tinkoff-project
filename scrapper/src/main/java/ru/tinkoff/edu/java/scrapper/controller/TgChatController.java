@@ -21,7 +21,7 @@ import ru.tinkoff.edu.java.scrapper.service.TgChatService;
 public class TgChatController {
     private final TgChatService chatService;
 
-    public TgChatController(@Qualifier("jooqChatService") TgChatService chatService) {
+    public TgChatController(@Qualifier("jpaChatService") TgChatService chatService) {
         this.chatService = chatService;
     }
 
@@ -34,11 +34,10 @@ public class TgChatController {
                             schema = @Schema(implementation = ApiErrorResponse.class)))
     })
     public ResponseEntity<?> registerChat(@PathVariable long id) throws IncorrectParametersOfRequestException {
+        log.info("Register chat " + id);
         if (id < 1) {
             throw new IncorrectParametersOfRequestException("id can't be negative or zero");
         }
-
-        log.info("REGISTER CHAT " + id);
         if (!chatService.register(id)) {
             throw new IncorrectParametersOfRequestException("Чат уже зарегистрирован!");
         };
@@ -57,6 +56,7 @@ public class TgChatController {
                             schema = @Schema(implementation = ApiErrorResponse.class)))
     })
     public ResponseEntity<?> deleteChat(@PathVariable long id) throws IncorrectParametersOfRequestException, TgChatNotFoundException {
+        log.info("Delete chat " + id);
         if (id < 1) {
             throw new IncorrectParametersOfRequestException("id can't be negative or zero");
         }
