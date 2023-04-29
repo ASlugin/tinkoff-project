@@ -6,4 +6,5 @@
 
     <include file="v-1.0/2023-04-10--01-initial-schema.sql"/>
     <include file="v-1.0/2023-04-18--02-add-column-to-link.sql"/>
+    <include file="v-1.0/2023-04-26--03--add-cascade-delete-on-chat.sql"/>
 </databaseChangeLog>

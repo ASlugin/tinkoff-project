@@ -2,7 +2,6 @@ package ru.tinkoff.edu.java.scrapper.persistence.repository.jooq;
 
 import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.persistence.model.Link;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.LinkRepository;
@@ -14,7 +13,6 @@ import static ru.tinkoff.edu.java.scrapper.persistence.jooq.tables.Link.LINK;
 import java.time.OffsetDateTime;
 import java.util.List;
 
-@Repository
 @RequiredArgsConstructor
 public class JooqLinkRepository implements LinkRepository {
     private final DSLContext dsl;

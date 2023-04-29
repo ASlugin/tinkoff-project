@@ -3,7 +3,6 @@ package ru.tinkoff.edu.java.scrapper.persistence.repository.jdbc;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.persistence.model.Link;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.LinkRepository;
@@ -12,7 +11,6 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Objects;
 
-@Repository
 @RequiredArgsConstructor
 public class JdbcLinkRepository implements LinkRepository {
     private final JdbcTemplate jdbcTemplate;

@@ -2,7 +2,6 @@ package ru.tinkoff.edu.java.scrapper.scheduler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -30,7 +29,6 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class LinkUpdaterScheduler {
-    @Qualifier("jdbcLinkRepository")
     private final LinkRepository linkRepository;
     private final BotClient botClient;
     private final GitHubClient gitHubClient;

@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 
-@Component
 public class LinkRowMapper implements RowMapper<Link> {
     @Override
     public Link mapRow(ResultSet rs, int rowNum) throws SQLException {
