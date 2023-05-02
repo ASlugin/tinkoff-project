@@ -15,3 +15,9 @@ springdoc:
 
 bot:
   token: ${BOT_TOKEN}
+
+spring:
+  rabbitmq:
+    listener:
+      simple:
+        default-requeue-rejected: false

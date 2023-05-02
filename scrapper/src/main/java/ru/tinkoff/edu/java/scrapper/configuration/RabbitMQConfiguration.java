@@ -23,13 +23,15 @@ public class RabbitMQConfiguration {
     }
 
     @Bean
-    public DirectExchange directExchange() {
+    public DirectExchange exchange() {
         return new DirectExchange(exchange, true, false);
     }
 
     @Bean
     public Queue queue() {
-        return new Queue(queue);
+        return QueueBuilder.durable(queue)
+                .withArgument("x-dead-letter-exchange", exchange + ".dlq")
+                .build();
     }
 
     @Bean

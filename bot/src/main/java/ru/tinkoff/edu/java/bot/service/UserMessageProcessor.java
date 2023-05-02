@@ -36,7 +36,7 @@ public class UserMessageProcessor {
 
     public void sendUpdateMessages(LinkUpdateRequest updateRequest) {
         for (long chatId : updateRequest.tgChatIds()) {
-            var request = new SendMessage(chatId, updateRequest.description());
+            SendMessage request = new SendMessage(chatId, updateRequest.description());
             tgBot.execute(request);
         }
     }
