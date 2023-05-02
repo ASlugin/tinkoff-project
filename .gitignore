@@ -39,3 +39,5 @@ buildNumber.properties
 
 # iml files #
 *.iml
+
+scrapper/rabbitmq/

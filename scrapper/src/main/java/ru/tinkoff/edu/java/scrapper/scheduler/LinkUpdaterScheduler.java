@@ -2,7 +2,6 @@ package ru.tinkoff.edu.java.scrapper.scheduler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -11,7 +10,6 @@ import ru.tinkoff.edu.java.linkparser.LinkParser;
 import ru.tinkoff.edu.java.linkparser.result.GitHubParsingResult;
 import ru.tinkoff.edu.java.linkparser.result.ParsingResult;
 import ru.tinkoff.edu.java.linkparser.result.StackOverflowParsingResult;
-import ru.tinkoff.edu.java.scrapper.client.BotClient;
 import ru.tinkoff.edu.java.scrapper.client.GitHubClient;
 import ru.tinkoff.edu.java.scrapper.client.StackOverflowClient;
 import ru.tinkoff.edu.java.scrapper.dto.client.GitHubResponse;
@@ -20,6 +18,7 @@ import ru.tinkoff.edu.java.scrapper.dto.client.StackOverflowItem;
 import ru.tinkoff.edu.java.scrapper.dto.client.StackOverflowResponse;
 import ru.tinkoff.edu.java.scrapper.persistence.model.Link;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.LinkRepository;
+import ru.tinkoff.edu.java.scrapper.service.producer.LinkUpdateProducer;
 
 import java.net.URI;
 import java.time.OffsetDateTime;
@@ -30,9 +29,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LinkUpdaterScheduler {
     private final LinkRepository linkRepository;
-    private final BotClient botClient;
     private final GitHubClient gitHubClient;
     private final StackOverflowClient stackOverflowClient;
+    private final LinkUpdateProducer linkUpdateProducer;
 
     @Value("${check-link-interval-minutes}")
     private int checkLinkInterval;
@@ -90,7 +89,7 @@ public class LinkUpdaterScheduler {
 
     private void updateLinkAndSendNotifications(Link link, OffsetDateTime updateAt) {
         List<Long> chatIds = linkRepository.updateLink(link, updateAt);
-        botClient.updates(new LinkUpdateRequest(link.getId(),
+        linkUpdateProducer.send(new LinkUpdateRequest(link.getId(),
                 URI.create(link.getUrl()),
                 "Появились изменения по ссылке " + link.getUrl(),
                 chatIds.stream().mapToLong(x -> x).toArray()));

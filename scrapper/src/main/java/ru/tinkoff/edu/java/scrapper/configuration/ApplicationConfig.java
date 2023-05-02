@@ -16,6 +16,11 @@ import java.time.Duration;
         version = "1.0.1",
         description = "Some description of scrapper"))
 @EnableScheduling
-public record ApplicationConfig(@NotNull String test, Scheduler scheduler, AccessType databaseAccessType) {
+public record ApplicationConfig(@NotNull String test,
+                                Scheduler scheduler,
+                                AccessType databaseAccessType,
+                                RabbitMQ rabbitMQ,
+                                boolean useQueue) {
     public record Scheduler(Duration interval) {}
+    public record RabbitMQ(String exchange, String queue, String routingKey) {}
 }
