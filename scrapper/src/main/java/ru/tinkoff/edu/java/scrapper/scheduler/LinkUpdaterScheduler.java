@@ -2,7 +2,6 @@ package ru.tinkoff.edu.java.scrapper.scheduler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -11,7 +10,6 @@ import ru.tinkoff.edu.java.linkparser.LinkParser;
 import ru.tinkoff.edu.java.linkparser.result.GitHubParsingResult;
 import ru.tinkoff.edu.java.linkparser.result.ParsingResult;
 import ru.tinkoff.edu.java.linkparser.result.StackOverflowParsingResult;
-import ru.tinkoff.edu.java.scrapper.client.BotClient;
 import ru.tinkoff.edu.java.scrapper.client.GitHubClient;
 import ru.tinkoff.edu.java.scrapper.client.StackOverflowClient;
 import ru.tinkoff.edu.java.scrapper.dto.client.GitHubResponse;

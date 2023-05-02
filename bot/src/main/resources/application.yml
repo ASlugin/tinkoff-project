@@ -1,5 +1,10 @@
 app:
   test: This is bot application
+  use-queue: true
+  rabbitMQ:
+    exchange: link
+    queue: link.queue
+    routing-key: link
 
 server:
   port: 8081
