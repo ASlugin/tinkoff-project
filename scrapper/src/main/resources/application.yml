@@ -3,6 +3,11 @@ app:
   scheduler:
     interval: 10000
   database-access-type: jdbc
+  use-queue: true
+  rabbitMQ:
+    exchange: link
+    queue: link.queue
+    routing-key: link
 
 check-link-interval-minutes: 5
 

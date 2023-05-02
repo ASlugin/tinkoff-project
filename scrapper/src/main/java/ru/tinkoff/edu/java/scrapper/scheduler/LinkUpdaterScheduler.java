@@ -20,6 +20,7 @@ import ru.tinkoff.edu.java.scrapper.dto.client.StackOverflowItem;
 import ru.tinkoff.edu.java.scrapper.dto.client.StackOverflowResponse;
 import ru.tinkoff.edu.java.scrapper.persistence.model.Link;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.LinkRepository;
+import ru.tinkoff.edu.java.scrapper.service.producer.LinkUpdateProducer;
 
 import java.net.URI;
 import java.time.OffsetDateTime;
@@ -30,9 +31,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LinkUpdaterScheduler {
     private final LinkRepository linkRepository;
-    private final BotClient botClient;
     private final GitHubClient gitHubClient;
     private final StackOverflowClient stackOverflowClient;
+    private final LinkUpdateProducer linkUpdateProducer;
 
     @Value("${check-link-interval-minutes}")
     private int checkLinkInterval;
@@ -90,7 +91,7 @@ public class LinkUpdaterScheduler {
 
     private void updateLinkAndSendNotifications(Link link, OffsetDateTime updateAt) {
         List<Long> chatIds = linkRepository.updateLink(link, updateAt);
-        botClient.updates(new LinkUpdateRequest(link.getId(),
+        linkUpdateProducer.send(new LinkUpdateRequest(link.getId(),
                 URI.create(link.getUrl()),
                 "Появились изменения по ссылке " + link.getUrl(),
                 chatIds.stream().mapToLong(x -> x).toArray()));
