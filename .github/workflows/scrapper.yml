@@ -10,9 +10,16 @@ on:
     paths:
       - 'scrapper/**'
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ghcr.io/aslugin/scrapper:latest
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
     steps:
       - uses: actions/checkout@v3
 
@@ -26,5 +33,15 @@ jobs:
       - name: Maven Package
         run: mvn package -pl scrapper -am
 
+      - name: Log in to the Container registry
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build docker image
-        run: docker build -t scrapper:latest ./scrapper/
+        run: docker build -t ${{ env.IMAGE_NAME }} ./scrapper/
+
+      - name: Push image to container registry
+        run: docker push ${{ env.IMAGE_NAME }}
