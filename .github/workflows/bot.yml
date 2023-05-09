@@ -2,8 +2,6 @@ name: Build bot
 
 on:
   pull_request:
-    branches:
-      - '*'
     paths:
       - 'bot/**'
   push:
