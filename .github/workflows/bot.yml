@@ -23,6 +23,14 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Add bot token
+        run: echo ${{ secrets.BOT_TOKEN }}
+
+#          run: |
+#          sed -i 's/\${GITHUB_TOKEN}/$GITHUB_TOKEN/g' ./bot/src/main/resources/application.yaml
+#          env:
+#            GITHUB_TOKEN: ${{ secrets.SCRAPPER_GITHUB_TOKEN }}
+
       - name: Maven Package
         run: mvn package -pl bot -am
 
