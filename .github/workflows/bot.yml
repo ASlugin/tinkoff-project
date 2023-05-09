@@ -29,6 +29,8 @@ jobs:
         env:
             BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
 
+      - run: echo ${{ secrets.BOT_TOKEN }}
+
       - name: Maven Package
         run: mvn package -pl bot -am
 
