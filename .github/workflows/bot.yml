@@ -24,10 +24,7 @@ jobs:
           cache: maven
 
       - name: Add bot token
-        run: 'echo "$BOT_TOKEN" > key'
-        shell: bash
-        env:
-          BOT_TOKEN: ${{secrets.BOT_TOKEN}}
+        run: echo ${{secrets.BOT_TOKEN}}
 
 #          run: |
 #          sed -i 's/\${GITHUB_TOKEN}/$GITHUB_TOKEN/g' ./bot/src/main/resources/application.yaml
