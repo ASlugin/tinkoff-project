@@ -29,6 +29,7 @@ public class BotController {
         if (request.id() < 1) {
             throw new IllegalArgumentException("id can't be negative or zero");
         }
+
         log.info("Update link by http");
         messageProcessor.sendUpdateMessages(request);
         return ResponseEntity.ok().build();
