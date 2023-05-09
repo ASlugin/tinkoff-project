@@ -1,16 +1,17 @@
 package ru.tinkoff.edu.java.scrapper.persistence.repository.jooq;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
 import ru.tinkoff.edu.java.scrapper.persistence.model.Chat;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.ChatRepository;
-import java.util.List;
-
 import static ru.tinkoff.edu.java.scrapper.persistence.jooq.tables.Chat.CHAT;
+
 
 @RequiredArgsConstructor
 public class JooqChatRepository implements ChatRepository {
     private final DSLContext dsl;
+
     @Override
     public Chat addChatById(long chatId) {
         dsl.insertInto(CHAT, CHAT.ID)

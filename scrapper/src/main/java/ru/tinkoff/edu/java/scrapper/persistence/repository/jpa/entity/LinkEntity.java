@@ -1,12 +1,11 @@
 package ru.tinkoff.edu.java.scrapper.persistence.repository.jpa.entity;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 
+import jakarta.persistence.*;
 import java.time.OffsetDateTime;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "link")

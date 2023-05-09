@@ -19,7 +19,7 @@ public class StackOverflowClient {
     public Mono<StackOverflowResponse> fetchQuestion(String id) {
         return this.webClient
                 .get()
-                .uri("/questions/" + id+ "?order=desc&sort=activity&site=stackoverflow")
+                .uri("/questions/" + id + "?order=desc&sort=activity&site=stackoverflow")
                 .retrieve()
                 .bodyToMono(StackOverflowResponse.class);
     }

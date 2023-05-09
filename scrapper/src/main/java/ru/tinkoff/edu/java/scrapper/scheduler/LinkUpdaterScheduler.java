@@ -1,5 +1,8 @@
 package ru.tinkoff.edu.java.scrapper.scheduler;
 
+import java.net.URI;
+import java.time.OffsetDateTime;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,10 +22,6 @@ import ru.tinkoff.edu.java.scrapper.dto.client.StackOverflowResponse;
 import ru.tinkoff.edu.java.scrapper.persistence.model.Link;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.LinkRepository;
 import ru.tinkoff.edu.java.scrapper.service.producer.LinkUpdateProducer;
-
-import java.net.URI;
-import java.time.OffsetDateTime;
-import java.util.List;
 
 @Component
 @Slf4j
@@ -46,23 +45,21 @@ public class LinkUpdaterScheduler {
             ParsingResult parsingLink = LinkParser.parse(link.getUrl());
             if (parsingLink instanceof GitHubParsingResult githubLink) {
                 try {
-                    GitHubResponse response = gitHubClient.fetchRepository(githubLink.user(), githubLink.repository()).block();
+                    GitHubResponse response = gitHubClient.fetchRepository(githubLink.user(),
+                        githubLink.repository()).block();
                     if (response == null) {
                         continue;
                     }
                     if (!response.timeOfLastUpdate().isEqual(link.getUpdatedAt())) {
                         updateLinkAndSendNotifications(link, response.timeOfLastUpdate());
-                    }
-                    else {
+                    } else {
                         linkRepository.checkLink(link);
                     }
 
-                }
-                catch (WebClientResponseException exc) {
+                } catch (WebClientResponseException exc) {
                     log.error(exc.getMessage());
                 }
-            }
-            else if (parsingLink instanceof StackOverflowParsingResult stackOverflowLink) {
+            } else if (parsingLink instanceof StackOverflowParsingResult stackOverflowLink) {
                 try {
                     StackOverflowResponse response = stackOverflowClient.fetchQuestion(stackOverflowLink.id()).block();
                     StackOverflowItem responseLink = response == null ? null : response.item().stream()
@@ -74,12 +71,10 @@ public class LinkUpdaterScheduler {
                     }
                     if (!responseLink.lastActivityDate().isEqual(link.getUpdatedAt())) {
                         updateLinkAndSendNotifications(link, responseLink.lastActivityDate());
-                    }
-                    else {
+                    } else {
                         linkRepository.checkLink(link);
                     }
-                }
-                catch (WebClientResponseException exc) {
+                } catch (WebClientResponseException exc) {
                     log.error(exc.getMessage());
                 }
             }

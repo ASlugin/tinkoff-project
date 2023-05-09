@@ -120,20 +120,33 @@ public class ChatLink extends TableImpl<ChatLinkRecord> {
     @Override
     @NotNull
     public List<ForeignKey<ChatLinkRecord, ?>> getReferences() {
-        return Arrays.asList(Keys.CONSTRAINT_8, Keys.CONSTRAINT_86);
+        return Arrays.asList(Keys.CHAT_LINK_CHAT_ID_FKEY, Keys.CONSTRAINT_8, Keys.CONSTRAINT_86);
     }
 
-    private transient Chat _chat;
+    private transient Chat _chatLinkChatIdFkey;
+    private transient Chat _constraint_8;
     private transient Link _link;
 
     /**
-     * Get the implicit join path to the <code>PUBLIC.CHAT</code> table.
+     * Get the implicit join path to the <code>PUBLIC.CHAT</code> table, via the
+     * <code>CHAT_LINK_CHAT_ID_FKEY</code> key.
      */
-    public Chat chat() {
-        if (_chat == null)
-            _chat = new Chat(this, Keys.CONSTRAINT_8);
+    public Chat chatLinkChatIdFkey() {
+        if (_chatLinkChatIdFkey == null)
+            _chatLinkChatIdFkey = new Chat(this, Keys.CHAT_LINK_CHAT_ID_FKEY);
 
-        return _chat;
+        return _chatLinkChatIdFkey;
+    }
+
+    /**
+     * Get the implicit join path to the <code>PUBLIC.CHAT</code> table, via the
+     * <code>CONSTRAINT_8</code> key.
+     */
+    public Chat constraint_8() {
+        if (_constraint_8 == null)
+            _constraint_8 = new Chat(this, Keys.CONSTRAINT_8);
+
+        return _constraint_8;
     }
 
     /**

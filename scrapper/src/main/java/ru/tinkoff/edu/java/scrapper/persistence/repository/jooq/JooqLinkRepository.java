@@ -1,17 +1,15 @@
 package ru.tinkoff.edu.java.scrapper.persistence.repository.jooq;
 
+import java.time.OffsetDateTime;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.persistence.model.Link;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.LinkRepository;
-
 import static org.jooq.impl.DSL.*;
 import static ru.tinkoff.edu.java.scrapper.persistence.jooq.tables.ChatLink.CHAT_LINK;
 import static ru.tinkoff.edu.java.scrapper.persistence.jooq.tables.Link.LINK;
-
-import java.time.OffsetDateTime;
-import java.util.List;
 
 @RequiredArgsConstructor
 public class JooqLinkRepository implements LinkRepository {
@@ -78,7 +76,8 @@ public class JooqLinkRepository implements LinkRepository {
     public List<Link> findNotCheckedLinks(int checkIntervalMinutes) {
 //        return dsl.select()
 //                .from(LINK)
-//                .where(DSL.timestampDiff(LINK.CHECKED_AT, DSL.currentTimestamp().sub(checkIntervalMinutes)).ge(new DayToSecond()) )
+//                .where(DSL.timestampDiff(LINK.CHECKED_AT, DSL.currentTimestamp().sub(checkIntervalMinutes))
+//                .ge(new DayToSecond()) )
 //                .fetch()
 //                .into(Link.class);
         return null;

@@ -1,13 +1,11 @@
 package ru.tinkoff.edu.java.scrapper.persistence.repository.jdbc;
 
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Component;
-import ru.tinkoff.edu.java.scrapper.persistence.model.Link;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import org.springframework.jdbc.core.RowMapper;
+import ru.tinkoff.edu.java.scrapper.persistence.model.Link;
 
 public class LinkRowMapper implements RowMapper<Link> {
     @Override

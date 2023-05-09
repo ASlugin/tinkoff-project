@@ -1,5 +1,6 @@
 package ru.tinkoff.edu.java.scrapper.controller;
 
+import java.util.Arrays;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -9,12 +10,11 @@ import ru.tinkoff.edu.java.scrapper.exception.IncorrectParametersOfRequestExcept
 import ru.tinkoff.edu.java.scrapper.exception.LinkNotFoundException;
 import ru.tinkoff.edu.java.scrapper.exception.TgChatNotFoundException;
 
-import java.util.Arrays;
-
 @RestControllerAdvice
 public class ScrapperExceptionHandler {
     @ExceptionHandler({IncorrectParametersOfRequestException.class})
-    public ResponseEntity<ApiErrorResponse> handleIncorrectParametersException(IncorrectParametersOfRequestException exception) {
+    public ResponseEntity<ApiErrorResponse> handleIncorrectParametersException(
+        IncorrectParametersOfRequestException exception) {
         ApiErrorResponse errorResponse = new ApiErrorResponse("Request to scrapper error",
                 HttpStatus.BAD_REQUEST.toString(),
                 exception.getClass().getSimpleName(),

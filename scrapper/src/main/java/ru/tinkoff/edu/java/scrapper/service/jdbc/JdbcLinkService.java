@@ -1,14 +1,11 @@
 package ru.tinkoff.edu.java.scrapper.service.jdbc;
 
+import java.net.URI;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
 import ru.tinkoff.edu.java.scrapper.persistence.model.Link;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.LinkRepository;
 import ru.tinkoff.edu.java.scrapper.service.LinkService;
-
-import java.net.URI;
-import java.util.List;
 
 @RequiredArgsConstructor
 public class JdbcLinkService implements LinkService {

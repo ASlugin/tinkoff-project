@@ -1,15 +1,14 @@
 package ru.tinkoff.edu.java.scrapper.persistence.repository.jdbc;
 
+import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.persistence.model.Link;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.LinkRepository;
-
-import java.time.OffsetDateTime;
-import java.util.List;
-import java.util.Objects;
 
 @RequiredArgsConstructor
 public class JdbcLinkRepository implements LinkRepository {
@@ -40,9 +39,9 @@ public class JdbcLinkRepository implements LinkRepository {
 
     @Override
     public List<Link> findAllLinksForChat(long chatId) {
-        return jdbcTemplate.query("SELECT id, url, updated_at, checked_at FROM link " +
-                        "JOIN chat_link ON link.id=chat_link.link_id " +
-                        "WHERE chat_link.chat_id=?",
+        return jdbcTemplate.query("SELECT id, url, updated_at, checked_at FROM link "
+                + "JOIN chat_link ON link.id=chat_link.link_id "
+                + "WHERE chat_link.chat_id=?",
                 linkRowMapper, chatId);
     }
 
@@ -67,7 +66,8 @@ public class JdbcLinkRepository implements LinkRepository {
     protected Link addNewLink(long chatId, String url) {
         jdbcTemplate.update("INSERT INTO link (url) VALUES (?)", url);
         Link link = findLinkByUrl(url);
-        jdbcTemplate.update("INSERT INTO chat_link (chat_id, link_id) VALUES (?, ?)", chatId, Objects.requireNonNull(link).getId());
+        jdbcTemplate.update("INSERT INTO chat_link (chat_id, link_id) VALUES (?, ?)",
+            chatId, Objects.requireNonNull(link).getId());
         return link;
     }
 
@@ -81,8 +81,7 @@ public class JdbcLinkRepository implements LinkRepository {
         try {
             return jdbcTemplate.queryForObject("SELECT id, url, updated_at, checked_at FROM link WHERE url=?",
                     linkRowMapper, url);
-        }
-        catch (EmptyResultDataAccessException exc) {
+        } catch (EmptyResultDataAccessException exc) {
             return null;
         }
     }

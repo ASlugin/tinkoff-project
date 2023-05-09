@@ -9,6 +9,7 @@ public enum ListOfCommands {
 
     private final String command;
     private final String description;
+
     ListOfCommands(String command, String description) {
         this.command = command;
         this.description = description;

@@ -46,6 +46,7 @@ public class Keys {
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final ForeignKey<ChatLinkRecord, ChatRecord> CHAT_LINK_CHAT_ID_FKEY = Internal.createForeignKey(ChatLink.CHAT_LINK, DSL.name("CHAT_LINK_CHAT_ID_FKEY"), new TableField[] { ChatLink.CHAT_LINK.CHAT_ID }, Keys.CONSTRAINT_1, new TableField[] { Chat.CHAT.ID }, true);
     public static final ForeignKey<ChatLinkRecord, ChatRecord> CONSTRAINT_8 = Internal.createForeignKey(ChatLink.CHAT_LINK, DSL.name("CONSTRAINT_8"), new TableField[] { ChatLink.CHAT_LINK.CHAT_ID }, Keys.CONSTRAINT_1, new TableField[] { Chat.CHAT.ID }, true);
     public static final ForeignKey<ChatLinkRecord, LinkRecord> CONSTRAINT_86 = Internal.createForeignKey(ChatLink.CHAT_LINK, DSL.name("CONSTRAINT_86"), new TableField[] { ChatLink.CHAT_LINK.LINK_ID }, Keys.CONSTRAINT_2, new TableField[] { Link.LINK.ID }, true);
 }

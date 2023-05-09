@@ -1,7 +1,11 @@
 package ru.tinkoff.edu.java.scrapper.service.jpa;
 
+import java.net.URI;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.persistence.model.Link;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.jpa.JpaChatRepository;
@@ -10,11 +14,6 @@ import ru.tinkoff.edu.java.scrapper.persistence.repository.jpa.entity.ChatEntity
 import ru.tinkoff.edu.java.scrapper.persistence.repository.jpa.entity.LinkEntity;
 import ru.tinkoff.edu.java.scrapper.service.LinkService;
 
-import java.net.URI;
-import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 public class JpaLinkService implements LinkService {
@@ -35,7 +34,8 @@ public class JpaLinkService implements LinkService {
             LinkEntity linkEntity = linkOptional.get();
             linkEntity.getChats().add(chat);
             jpaLinkRepository.save(linkEntity);
-            return new Link(linkEntity.getId(), linkEntity.getUrl(), linkEntity.getUpdatedAt(), linkEntity.getCheckedAt());
+            return new Link(linkEntity.getId(), linkEntity.getUrl(), linkEntity.getUpdatedAt(),
+                linkEntity.getCheckedAt());
         }
 
         LinkEntity newLink = new LinkEntity();
