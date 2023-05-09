@@ -10,6 +10,10 @@ on:
     paths:
       - 'bot/**'
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,10 +33,15 @@ jobs:
         env:
             BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
 
-      - run: echo ${{ secrets.BOT_TOKEN }}
-
       - name: Maven Package
         run: mvn package -pl bot -am
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build docker image
         run: docker build -t bot:latest ./bot/
