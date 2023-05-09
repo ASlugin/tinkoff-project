@@ -24,12 +24,10 @@ jobs:
           cache: maven
 
       - name: Add bot token
-        run: echo "Hello world"
-
-#          run: |
-#          sed -i 's/\${GITHUB_TOKEN}/$GITHUB_TOKEN/g' ./bot/src/main/resources/application.yaml
-#          env:
-#            GITHUB_TOKEN: ${{ secrets.SCRAPPER_GITHUB_TOKEN }}
+        run: | 
+          sed -i 's/\${BOT_TOKEN}/$BOT_TOKEN/g' ./bot/src/main/resources/application.yml
+        env:
+            BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
 
       - name: Maven Package
         run: mvn package -pl bot -am
