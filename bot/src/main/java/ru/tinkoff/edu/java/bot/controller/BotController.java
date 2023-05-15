@@ -10,9 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import ru.tinkoff.edu.java.bot.dto.request.LinkUpdateRequest;
-import ru.tinkoff.edu.java.bot.dto.response.ApiErrorResponse;
 import ru.tinkoff.edu.java.bot.service.UserMessageProcessor;
 
 @RestController
@@ -29,6 +27,7 @@ public class BotController {
         if (request.id() < 1) {
             throw new IllegalArgumentException("id can't be negative or zero");
         }
+
         log.info("Update link by http");
         messageProcessor.sendUpdateMessages(request);
         return ResponseEntity.ok().build();

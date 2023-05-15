@@ -1,12 +1,11 @@
 package ru.tinkoff.edu.java.linkparser;
 
+import java.util.Iterator;
+import java.util.List;
 import ru.tinkoff.edu.java.linkparser.handler.GitHubParsingHandler;
 import ru.tinkoff.edu.java.linkparser.handler.ParsingHandler;
 import ru.tinkoff.edu.java.linkparser.handler.StackOverflowParsingHandler;
 import ru.tinkoff.edu.java.linkparser.result.ParsingResult;
-
-import java.util.Iterator;
-import java.util.List;
 
 public class LinkParser {
     private static ParsingHandler handler;

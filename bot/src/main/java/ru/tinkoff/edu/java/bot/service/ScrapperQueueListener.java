@@ -1,5 +1,6 @@
 package ru.tinkoff.edu.java.bot.service;
 
+import java.util.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
@@ -9,9 +10,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import ru.tinkoff.edu.java.bot.configuration.ApplicationConfig;
 import ru.tinkoff.edu.java.bot.dto.request.LinkUpdateRequest;
-import ru.tinkoff.edu.java.bot.service.UserMessageProcessor;
-
-import java.util.*;
 
 @Component
 @ConditionalOnProperty(prefix = "app", name = "use-queue", havingValue = "true")
@@ -42,8 +40,7 @@ public class ScrapperQueueListener {
         }
         if (messageXDeathCount == null || messageXDeathCount > 5) {
             log.info("Discarding message");
-        }
-        else {
+        } else {
             rabbitTemplate.send(config.rabbitMQ().exchange(), config.rabbitMQ().routingKey(), message);
         }
     }

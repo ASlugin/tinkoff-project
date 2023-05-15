@@ -30,6 +30,7 @@
         <testcontainers.version>1.18.0</testcontainers.version>
         <liquibase.version>4.21.1</liquibase.version>
         <org.jooq.version>3.17.6</org.jooq.version>
+        <checkstyle.config.location>checkstyle.xml</checkstyle.config.location>
     </properties>
 
     <dependencyManagement>

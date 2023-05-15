@@ -2,7 +2,7 @@ package ru.tinkoff.edu.java.linkparser.handler;
 
 import ru.tinkoff.edu.java.linkparser.result.ParsingResult;
 
-public abstract class AbstractParsingHandler implements ParsingHandler{
+public abstract class AbstractParsingHandler implements ParsingHandler {
     private ParsingHandler nextHandler;
 
     @Override

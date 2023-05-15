@@ -20,7 +20,7 @@ import ru.tinkoff.edu.java.scrapper.service.TgChatService;
 public class TgChatController {
     private final TgChatService chatService;
 
-    @PostMapping(value = "/{id}" )
+    @PostMapping(value = "/{id}")
     @Operation(summary = "Зарегистрировать чат", responses = {
             @ApiResponse(responseCode = "200", description = "Чат зарегистрирован",
                     content = @Content(schema = @Schema(implementation = Void.class))),
@@ -31,11 +31,11 @@ public class TgChatController {
     public ResponseEntity<?> registerChat(@PathVariable long id) throws IncorrectParametersOfRequestException {
         log.info("Register chat " + id);
         if (id < 1) {
-            throw new IncorrectParametersOfRequestException("id can't be negative or zero");
+            throw new IncorrectParametersOfRequestException("Id can't be negative or zero");
         }
         if (!chatService.register(id)) {
             throw new IncorrectParametersOfRequestException("Чат уже зарегистрирован!");
-        };
+        }
         return ResponseEntity.ok().build();
     }
 
@@ -50,7 +50,8 @@ public class TgChatController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiErrorResponse.class)))
     })
-    public ResponseEntity<?> deleteChat(@PathVariable long id) throws IncorrectParametersOfRequestException, TgChatNotFoundException {
+    public ResponseEntity<?> deleteChat(@PathVariable long id) throws IncorrectParametersOfRequestException,
+        TgChatNotFoundException {
         log.info("Delete chat " + id);
         if (id < 1) {
             throw new IncorrectParametersOfRequestException("id can't be negative or zero");

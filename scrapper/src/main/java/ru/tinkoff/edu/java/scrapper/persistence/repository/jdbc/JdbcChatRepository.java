@@ -1,5 +1,6 @@
 package ru.tinkoff.edu.java.scrapper.persistence.repository.jdbc;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -7,8 +8,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import ru.tinkoff.edu.java.scrapper.persistence.model.Chat;
 import ru.tinkoff.edu.java.scrapper.persistence.repository.ChatRepository;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 public class JdbcChatRepository implements ChatRepository {
@@ -31,8 +30,7 @@ public class JdbcChatRepository implements ChatRepository {
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM chat WHERE id=?",
                     new BeanPropertyRowMapper<>(Chat.class), chatId);
-        }
-        catch (EmptyResultDataAccessException exc) {
+        } catch (EmptyResultDataAccessException exc) {
             return null;
         }
     }

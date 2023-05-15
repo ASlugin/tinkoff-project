@@ -25,7 +25,7 @@ public class Bot {
                 .map((Command x) -> x.getBotCommand()).toArray(BotCommand[]::new)));
 
         tgBot.setUpdatesListener(updates -> {
-            for (Update update : updates){
+            for (Update update : updates) {
                 tgBot.execute(processor.process(update));
             }
             return UpdatesListener.CONFIRMED_UPDATES_ALL;
