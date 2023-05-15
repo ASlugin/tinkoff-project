@@ -4,11 +4,17 @@ on:
   pull_request:
     paths:
       - 'scrapper/**'
+      - 'scrapper-jooq/**'
+      - 'link-parser/**'
+      - '.github/workflows/scrapper.yml'
   push:
     branches:
       - 'main'
     paths:
       - 'scrapper/**'
+      - 'scrapper-jooq/**'
+      - 'link-parser/**'
+      - '.github/workflows/scrapper.yml'
 
 env:
   REGISTRY: ghcr.io
@@ -34,9 +40,6 @@ jobs:
         run: mvn package -pl scrapper-jooq -am && java -jar scrapper-jooq/target/scrapper-jooq-1.0-SNAPSHOT.jar
 
       - name: Scrapper Maven Package
-        run: mvn package -pl scrapper -am
-
-      - name: Maven Package
         run: mvn package -pl scrapper -am
 
       - name: Log in to the Container registry
