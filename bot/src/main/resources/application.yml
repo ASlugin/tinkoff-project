@@ -17,7 +17,7 @@ bot:
   token: ${BOT_TOKEN}
 
 spring:
-  application.name: scrapper
+  application.name: bot
   rabbitmq:
     listener:
       simple:

@@ -11,6 +11,9 @@ app:
 
 check-link-interval-minutes: 5
 
+server:
+  port: 8080
+
 springdoc:
   swagger-ui:
     path: /swagger-ui
