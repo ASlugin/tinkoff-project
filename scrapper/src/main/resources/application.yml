@@ -16,9 +16,27 @@ springdoc:
     path: /swagger-ui
 
 spring:
+  application.name: scrapper
   liquibase:
     enabled: false
   datasource:
     url: jdbc:postgresql://localhost:5432/scrapper
     username: postgres
     password: 123456
+
+management:
+  server.port: 8082
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure.include: ["health", "info", "prometheus"]
+      base-path: "/"
+      path-mapping:
+        info: "info"
+        health: "health"
+        prometheus: "metrics"
+  endpoint:
+    info.enabled: true
+    health.enabled: true
+    prometheus.enabled: true
+  metrics.tags.application: ${spring.application.name}
