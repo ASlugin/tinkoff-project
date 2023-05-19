@@ -23,7 +23,7 @@ spring:
   liquibase:
     enabled: false
   datasource:
-    url: jdbc:postgresql://localhost:5432/scrapper
+    url: jdbc:postgresql://0.0.0.0:5432/scrapper
     username: postgres
     password: 123456
   jpa.properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
