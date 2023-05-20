@@ -6,13 +6,19 @@ import com.pengrad.telegrambot.model.BotCommand;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SetMyCommands;
 import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import ru.tinkoff.edu.java.bot.service.command.Command;
 
 @Component
+@Slf4j
 public class Bot {
     private final TelegramBot tgBot;
     private final UserMessageProcessor processor;
+
+    @Value("${bot.token}")
+    private String token;
 
     public Bot(TelegramBot tgBot, UserMessageProcessor processor) {
         this.tgBot = tgBot;
@@ -21,6 +27,7 @@ public class Bot {
 
     @PostConstruct
     public void setListener() {
+        log.warn(token);
         tgBot.execute(new SetMyCommands(processor.getCommands().stream()
                 .map((Command x) -> x.getBotCommand()).toArray(BotCommand[]::new)));
 

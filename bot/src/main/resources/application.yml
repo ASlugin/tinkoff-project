@@ -5,7 +5,7 @@ app:
     exchange: link
     queue: link.queue
     routing-key: link
-    url-host: rabbit
+    url-host: localhost
       # for docker: rabbit
       # for local start: localhost
 
