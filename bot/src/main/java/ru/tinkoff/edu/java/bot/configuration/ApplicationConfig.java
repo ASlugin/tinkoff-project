@@ -12,5 +12,5 @@ import org.springframework.validation.annotation.Validated;
         version = "1.0.1",
         description = "Some description of bot"))
 public record ApplicationConfig(@NotNull String test, RabbitMQ rabbitMQ, boolean useQueue) {
-    public record RabbitMQ(String exchange, String queue, String routingKey) {}
+    public record RabbitMQ(String exchange, String queue, String routingKey, String urlHost) {}
 }
