@@ -23,7 +23,9 @@ spring:
   liquibase:
     enabled: false
   datasource:
-    url: jdbc:postgresql://0.0.0.0:5432/scrapper
+    url: ${DB_URL}
+    # url for docker : jdbc:postgresql://postgresql:5432/scrapper
+    # url for local start : jdbc:postgresql://localhost:5432/scrapper
     username: postgres
     password: 123456
   jpa.properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
