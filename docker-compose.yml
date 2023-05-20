@@ -13,17 +13,17 @@ services:
     networks:
       - backend
 
-#  bot:
-#    image: ghcr.io/aslugin/bot:latest
-#    container_name: bot
-#    depends_on:
-#      - scrapper
-#    restart: always
-#    ports:
-#      - "8081:8081"
-#      - "8083:8083"
-#    networks:
-#      - backend
+  bot:
+    image: ghcr.io/aslugin/bot:latest
+    container_name: bot
+    depends_on:
+      - scrapper
+    restart: always
+    ports:
+      - "8081:8081"
+      - "8083:8083"
+    networks:
+      - backend
 
   postgresql:
     image: postgres:15
