@@ -32,14 +32,16 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Add bot token
-        run: |
-          sed -i 's/\${BOT_TOKEN}/$BOT_TOKEN/g' ./bot/src/main/resources/application.yml
-        env:
-            BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+#      - name: Add bot token
+#        run: |
+#          sed -i 's/\${BOT_TOKEN}/$BOT_TOKEN/g' ./bot/src/main/resources/application.yml
+#        env:
+#            BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
 
       - name: Maven Package
-        run: mvn package -pl bot -am
+        run: mvn -DBOT_TOKEN=$BOT_TOKEN package -pl bot -am
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
 
       - name: Log in to the Container registry
         uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
