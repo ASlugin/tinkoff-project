@@ -23,5 +23,5 @@ public record ApplicationConfig(@NotNull String test,
                                 boolean useQueue) {
     public record Scheduler(Duration interval) {}
 
-    public record RabbitMQ(String exchange, String queue, String routingKey) {}
+    public record RabbitMQ(String exchange, String queue, String routingKey, String urlHost) {}
 }

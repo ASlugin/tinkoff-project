@@ -15,11 +15,13 @@ public class RabbitMQConfiguration {
     private final String exchange;
     private final String queue;
     private final String routingKey;
+    private final String urlHost;
 
     public RabbitMQConfiguration(ApplicationConfig config) {
         exchange = config.rabbitMQ().exchange();
         queue = config.rabbitMQ().queue();
         routingKey = config.rabbitMQ().routingKey();
+        urlHost = config.rabbitMQ().urlHost();
     }
 
     @Bean
@@ -46,7 +48,7 @@ public class RabbitMQConfiguration {
 
     @Bean
     public ConnectionFactory connectionFactory() {
-        CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory("localhost");
+        CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory(urlHost);
         cachingConnectionFactory.setUsername("user");
         cachingConnectionFactory.setPassword("password");
         return cachingConnectionFactory;

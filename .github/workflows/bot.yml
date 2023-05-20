@@ -33,8 +33,7 @@ jobs:
           cache: maven
 
       - name: Add bot token
-        run: |
-          sed -i 's/\${BOT_TOKEN}/$BOT_TOKEN/g' ./bot/src/main/resources/application.yml
+        run: sed -i 's/"${BOT_TOKEN}"/"$BOT_TOKEN"/g' ./bot/src/main/resources/application.yml
         env:
             BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
 

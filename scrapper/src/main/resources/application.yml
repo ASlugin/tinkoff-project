@@ -8,17 +8,44 @@ app:
     exchange: link
     queue: link.queue
     routing-key: link
+    url-host: rabbit
+      # for docker: rabbit
+      # for local start: localhost
 
 check-link-interval-minutes: 5
+
+server:
+  port: 8080
 
 springdoc:
   swagger-ui:
     path: /swagger-ui
 
 spring:
+  application.name: scrapper
   liquibase:
     enabled: false
   datasource:
-    url: jdbc:postgresql://localhost:5432/scrapper
+    url: ${DB_URL}
+    # url for docker : jdbc:postgresql://postgresql:5432/scrapper
+    # url for local start : jdbc:postgresql://localhost:5432/scrapper
     username: postgres
     password: 123456
+  jpa.properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+
+management:
+  server.port: 8082
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure.include: ["health", "info", "prometheus"]
+      base-path: "/"
+      path-mapping:
+        info: "info"
+        health: "health"
+        prometheus: "metrics"
+  endpoint:
+    info.enabled: true
+    health.enabled: true
+    prometheus.enabled: true
+  metrics.tags.application: ${spring.application.name}
